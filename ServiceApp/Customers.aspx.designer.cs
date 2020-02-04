@@ -10,7 +10,7 @@
 namespace ServiceApp {
     
     
-    public partial class Customers {
+    public partial class Customer {
         
         /// <summary>
         /// nameLabel control.
@@ -130,13 +130,13 @@ namespace ServiceApp {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// ListView1 control.
+        /// CustomerListView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListView1;
+        protected global::System.Web.UI.WebControls.ListView CustomerListView;
         
         /// <summary>
         /// Literal1 control.
