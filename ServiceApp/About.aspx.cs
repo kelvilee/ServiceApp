@@ -11,9 +11,21 @@ namespace ServiceApp
 {
     public partial class About : Page
     {
+        private string connectionString = "DSN=mySqlServer;Uid=SYSTEM;Pwd=password";
         protected void Page_Load(object sender, EventArgs e)
         {
+            OdbcConnection myConn = new OdbcConnection(connectionString);
+            myConn.Open();
+            string mySelectQuery = "Select * from customer";
+            OdbcCommand command = new OdbcCommand(mySelectQuery, myConn);
 
+            if (!Page.IsPostBack)
+            {
+
+                ListView1.DataSource = command.ExecuteReader();
+                ListView1.DataBind();
+            }
+            myConn.Close();
         }
 
         protected void UploadBtn_Click(object sender, EventArgs e)
@@ -33,8 +45,6 @@ namespace ServiceApp
                 //inserting to RDBMS via ODBC
                 try
                 {
-                    // Connection
-                    string connectionString = "DSN=mySqlServer;Uid=SYSTEM;Pwd=password";
                     OdbcConnection conn = new OdbcConnection();
                     conn = new OdbcConnection(connectionString);
                     conn.Open();
