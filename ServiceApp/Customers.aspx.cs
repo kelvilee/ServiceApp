@@ -9,9 +9,9 @@ using System.IO;
 
 namespace ServiceApp
 {
-    public partial class About : Page
+    public partial class Customers : Page
     {
-        private string connectionString = "DSN=mySqlServer;Uid=SYSTEM;Pwd=password";
+        private string connectionString = "DSN=myOracle;Uid=system;Pwd=oracle1";
         protected void Page_Load(object sender, EventArgs e)
         {
             OdbcConnection myConn = new OdbcConnection(connectionString);

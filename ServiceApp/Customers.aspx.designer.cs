@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ServiceApp
-{
-
-
-    public partial class About
-    {
-
+namespace ServiceApp {
+    
+    
+    public partial class Customers {
+        
         /// <summary>
         /// nameLabel control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label nameLabel;
-
+        
         /// <summary>
         /// nameTextBox control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox nameTextBox;
-
+        
         /// <summary>
         /// addressLabel control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label addressLabel;
-
+        
         /// <summary>
         /// addressTextBox control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox addressTextBox;
-
+        
         /// <summary>
         /// maleRadioLbl control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label maleRadioLbl;
-
+        
         /// <summary>
         /// maleRadioBtn control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton maleRadioBtn;
-
+        
         /// <summary>
         /// femaleRadioLbl control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label femaleRadioLbl;
-
+        
         /// <summary>
         /// femaleRadioBtn control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton femaleRadioBtn;
-
+        
         /// <summary>
         /// birthCalendar control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Calendar birthCalendar;
-
+        
         /// <summary>
         /// imageLabel control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label imageLabel;
-
+        
         /// <summary>
         /// FileUpload1 control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
-
+        
         /// <summary>
         /// UploadBtn control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button UploadBtn;
-
+        
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-
+        
         /// <summary>
         /// ListView1 control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace ServiceApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView ListView1;
-
+        
         /// <summary>
         /// Literal1 control.
         /// </summary>
