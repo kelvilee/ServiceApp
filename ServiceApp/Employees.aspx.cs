@@ -15,14 +15,13 @@ namespace ServiceApp
         {
             OdbcConnection myConn = new OdbcConnection(connectionString);
             myConn.Open();
-            string mySelectQuery = "Select * from Employee";
+            string mySelectQuery = "select * from Employee";
             OdbcCommand command = new OdbcCommand(mySelectQuery, myConn);
 
             if (!Page.IsPostBack)
             {
-
-                ListView1.DataSource = command.ExecuteReader();
-                ListView1.DataBind();
+                ListViewEmployees.DataSource = command.ExecuteReader();
+                ListViewEmployees.DataBind();
             }
             myConn.Close();
         }

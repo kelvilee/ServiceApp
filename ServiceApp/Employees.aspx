@@ -3,18 +3,16 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
      <div> 
-        <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListView1" > 
+        <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListViewEmployees" > 
            
-                <ItemTemplate>
-                    <asp:Label runat="server" Text='<%# Eval("name") %>'> </asp:Label>
-                    <asp:Label runat="server" Text='<%# Eval("address") %>'></asp:Label> 
-                    <br> </br>
-                    <asp:Image id="pictureControlID" runat="server" AlternateText='<% #Eval("name") %>' ImageUrl='<%# "~/Desert.jpg" %>' />
+            <ItemTemplate>
+                <asp:Label runat="server" Text='<%# Eval("NAME") %>'> </asp:Label>
+                <asp:Label runat="server" Text='<%# Eval("ADDRESS") %>'></asp:Label> 
+                <asp:Label runat="server" Text='<%# Eval("JOBTITLE") %>'></asp:Label> 
+                <br> 
 
-              <asp:LinkButton ID="SelectButton" runat="server" CommandName="Select" Text='<% #Eval("name") %>' />
-           
-
-</ItemTemplate>
+            <asp:LinkButton ID="SelectButton" runat="server" CommandName="Select" Text='<%# Eval("name") %>' />
+            </ItemTemplate>
         </asp:ListView> 
         <asp:Literal runat="server" ID="Literal1"></asp:Literal> 
     </div> 
