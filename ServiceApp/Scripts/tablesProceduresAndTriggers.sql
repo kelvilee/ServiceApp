@@ -1,8 +1,8 @@
+drop table CustomerServiceSchedule;
+drop table CustomerService;
 drop table Customer;
 drop table Employee;
 drop table ServiceType;
-drop table CustomerService;
-drop table CustomerServiceSchedule;
 
 drop table CustomerServiceScheduleFacts;
 drop table EmployeeDim;
@@ -296,3 +296,13 @@ close c1;
 end;
 /
 show errors;
+
+
+set pagesize 1000;
+set linesize 1000;
+column ID format a32;
+column Name format a20;
+column Address format a30;
+column Birthdate format a15;
+column Gender format a1;
+column Picture format a20;
