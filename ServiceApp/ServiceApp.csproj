@@ -103,11 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Customers.aspx" />
-=======
-    <Content Include="About.aspx" />
->>>>>>> work in progress just need to pull.
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

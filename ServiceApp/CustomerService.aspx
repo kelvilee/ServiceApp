@@ -1,13 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerService.aspx.cs" Inherits="ServiceApp.CustomerService" %>
+﻿<%@ Page Title="Customers" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CustomerService.aspx.cs" Inherits="ServiceApp.CustomerService" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+<%--    <asp:form id="form1" runat="server">--%>
+        <h2>Customer Service Details</h2>
+        <br />
         <div>
             <asp:Button ID="Button1" runat="server" Text="Add" />
         </div>
@@ -22,6 +18,5 @@
             </ItemTemplate>
         </asp:ListView>
      </div> 
-    </form>
-</body>
-</html>
+<%--    </asp:form>--%>
+</asp:Content>
