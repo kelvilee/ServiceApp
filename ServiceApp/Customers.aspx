@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Customer" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="ServiceApp.Customer" %>
+﻿<%@ Page Title="Customer" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Customers.aspx.cs" Inherits="ServiceApp.Customer" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Add Customer</h2>
@@ -18,19 +18,28 @@
     <asp:Button ID="UploadBtn" runat="server" Text="Submit" OnClick="UploadBtn_Click" />
     <br />
     <br />
-    <asp:Label ID="Label1" runat="server"></asp:Label>
+    <asp:Label ID="CustomerLabel" runat="server"></asp:Label>
     <br />
     <br />
     <br />
     <h2>Customer List</h2>
-    <asp:ListView ItemPlaceholderID="Test" runat="server" ID="CustomerListView">
+    <asp:ListView ItemPlaceholderID="Test" runat="server" ID="CustomerListView" OnItemCommand="CustomerListView_ItemCommand" OnItemEditing="CustomerListView_ItemEditing">
+        <EditItemTemplate>
+            <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+            <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
+            <%--<asp:TextBox ID="NameTextBox" runat="server" Text='<%# Bind("Name") %>' />--%>
+            <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
+            <asp:TextBox ID="PriceTextBox" runat="server" Text='<%# Bind("name") %>' />
+        </EditItemTemplate>
         <ItemTemplate>
-            <asp:Image ID="pictureControlID" runat="server" Height="75px" Width="75px" ImageUrl='<% # "data:image;base64," + Convert.ToBase64String((byte[])Eval("picture")) %>'/>
+            <asp:Image ID="pictureControlID" runat="server" Height="75px" Width="75px" ImageUrl='<% # "data:image;base64," + Convert.ToBase64String((byte[])Eval("picture")) %>' />
             <asp:Label runat="server" Text='<%# Eval("name") %>'> </asp:Label>
             <asp:Label runat="server" Text='<%# Eval("address") %>'></asp:Label>
             <asp:Label runat="server" Text='<%# Eval("birthdate") %>'></asp:Label>
             <asp:Label runat="server" Text='<%# Eval("gender") %>'></asp:Label>
-            <asp:Button ID="DeletBtn" runat="server" OnClick="DeleteBtn_Click" Text="Delete" />
+            <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />
+            <asp:Button ID="DeletBtn" runat="server" CommandName="DeleteItem" CommandArgument='<%# BitConverter.ToString((byte[])Eval("id")) %>' Text="Delete" />
             <br />
             <br />
         </ItemTemplate>
