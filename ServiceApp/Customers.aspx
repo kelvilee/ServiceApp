@@ -25,7 +25,8 @@
     <h2>Customer List</h2>
     <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListView1">
         <ItemTemplate>
-            <asp:Image ID="pictureControlID" runat="server" Height="75px" Width="75px" ImageUrl='<% # "data:image;base64," + Convert.ToBase64String((byte[])Eval("picture")) %>'/>
+            <%--<asp:Image ID="pictureControlID" runat="server" Height="75px" Width="75px" ImageUrl='<% # "data:image;base64," + Convert.ToBase64String((byte[])Eval("picture")) %>'/>--%>
+            <asp:Image ID="Image1" runat="server" Height="75px" Width="75px" ImageUrl='<%# (Eval("picture") != System.DBNull.Value ? "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("picture")) : "https://muschealth.org/MUSCApps/HealthAssets/ProfileImages/NoImageProvided.png") %>'/>
             <asp:Label runat="server" Text='<%# Eval("name") %>'> </asp:Label>
             <asp:Label runat="server" Text='<%# Eval("address") %>'></asp:Label>
             <asp:Label runat="server" Text='<%# Eval("birthdate") %>'></asp:Label>
