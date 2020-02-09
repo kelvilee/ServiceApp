@@ -1,7 +1,7 @@
-﻿<%--<%@ Page Title="Customers" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Customers.aspx.cs" Inherits="ServiceApp.Customers" %>
+﻿<%@ Page Title="Customers" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Customers.aspx.cs" Inherits="ServiceApp.Customers"%>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Add Customer</h2>
+    <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+            <h2>Add Customer</h2>
     <br />
     <asp:Label ID="nameLabel" runat="server" Text="Name:"></asp:Label><br />
     <asp:TextBox ID="nameTextBox" runat="server"></asp:TextBox><br />
@@ -19,37 +19,6 @@
     <br />
     <br />
     <asp:Label ID="Label1" runat="server"></asp:Label>
-    <br />
-    <br />
-    <br />
-    <h2>Customer List</h2>
-    <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListView1">
-        <ItemTemplate>
-            <%--<asp:Image ID="pictureControlID" runat="server" Height="75px" Width="75px" ImageUrl='<% # "data:image;base64," + Convert.ToBase64String((byte[])Eval("picture")) %>'/>
-            <asp:Image ID="Image1" runat="server" Height="75px" Width="75px" ImageUrl='<%# (Eval("picture") != System.DBNull.Value ? "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("picture")) : "https://muschealth.org/MUSCApps/HealthAssets/ProfileImages/NoImageProvided.png") %>'/>
-            <asp:Label runat="server" Text='<%# Eval("name") %>'> </asp:Label>
-            <asp:Label runat="server" Text='<%# Eval("address") %>'></asp:Label>
-            <asp:Label runat="server" Text='<%# Eval("birthdate") %>'></asp:Label>
-            <asp:Label runat="server" Text='<%# Eval("gender") %>'></asp:Label>
-            <br />
-            <br />
-        </ItemTemplate>
-    </asp:ListView>
-    <asp:Literal runat="server" ID="Literal1"></asp:Literal>
-</asp:Content>--%>
-
-<%@ Page Language="C#" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
-    <title>ListView Templates Example</title>
-</head>
-<body>
-    <form id="form1" runat="server">
-
         <h3>Customers</h3>
         <asp:ListView ID="ContactsListView"
             DataSourceID="ContactsDataSource"
@@ -78,9 +47,6 @@
             <ItemTemplate>
                 <tr runat="server">
                     <td>
-                        <asp:Label ID="CustomerID" runat="server" Text='<%#Eval("ID") %>' />
-                    </td>
-                    <td>
                         <asp:Image ID="Image1" runat="Server" Height="64px" Width="64px" ImageUrl='<%# (Eval("Picture") != System.DBNull.Value ? "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("Picture")) : "https://muschealth.org/MUSCApps/HealthAssets/ProfileImages/NoImageProvided.png") %>' />
                     </td>
                     <td>
@@ -103,10 +69,7 @@
             </ItemTemplate>
             <EditItemTemplate>
                 <tr style="background-color: #ADD8E6">
-                    <td>
-                        <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />&nbsp;
-                        <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
-                    </td>
+                    <td></td>
                     <td>
                         <asp:TextBox ID="FirstNameTextBox" runat="server" Text='<%#Bind("Name") %>'
                             MaxLength="50" /><br />
@@ -115,28 +78,28 @@
                         <asp:TextBox ID="AddressTextBox" runat="server" Text='<%#Bind("Address") %>'
                             MaxLength="50" /><br />
                     </td>
+                    <td>
+                        <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />&nbsp;
+                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                    </td>
                 </tr>
             </EditItemTemplate>
         </asp:ListView>
 
-        <!-- This example uses Microsoft SQL Server and connects      -->
-        <!-- to the AdventureWorks sample database. Use an ASP.NET    -->
-        <!-- expression to retrieve the connection string value       -->
-        <!-- from the Web.config file.                                -->
         <asp:SqlDataSource ID="ContactsDataSource" runat="server"
             ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
             SelectCommand="SELECT * FROM Customer"
             UpdateCommand="UPDATE Customer
-                       SET Name = @Name, Address = @Address
-                       WHERE ID = @ID"
+                       SET Name = :Name, Address = :Address
+                       WHERE ID = :ID"
             DeleteCommand="DELETE FROM Customer
-                        WHERE ID = @ID"
+                        WHERE ID = :ID"
             ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>">
             <DeleteParameters>
                 <asp:Parameter Name="ID"/>
             </DeleteParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="ID" />
+            </UpdateParameters>
         </asp:SqlDataSource>
-
-    </form>
-</body>
-</html>
+</asp:Content>
