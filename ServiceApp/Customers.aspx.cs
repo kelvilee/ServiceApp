@@ -6,11 +6,22 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Odbc;
 using System.IO;
+using System.Data.Common;
 
 namespace ServiceApp
 {
     public partial class Customers : Page
     {
+
+        private void OnSqlUpdating(Object source, SqlDataSourceCommandEventArgs e)
+        {
+            DbCommand command = e.Command;
+            DbConnection cx = command.Connection;
+            cx.Open();
+            DbTransaction tx = cx.BeginTransaction();
+            command.Transaction = tx;
+        }
+
         private string connectionString = "DSN=myOracle;Uid=system;Pwd=oracle1";
         protected void Page_Load(object sender, EventArgs e)
         {
