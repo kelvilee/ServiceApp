@@ -17,21 +17,26 @@ namespace ServiceApp
 
         protected void Signup_Click(object sender, EventArgs e)
         {
-                string uid = TextBox3.Text;
+            string uid = TextBox3.Text;
             string pass = ComputeSha256Hash(TextBox4.Text);
 
-                OdbcConnection myConn = new OdbcConnection(connectionString);
-                myConn.Open();
+            OdbcConnection myConn = new OdbcConnection(connectionString);
+            myConn.Open();
 
-                string qry = "insert into ulogin (userid, password) values (?, ?)";
-                OdbcCommand exe = new OdbcCommand(qry, myConn);
-                exe.Parameters.Add("@userid", OdbcType.Char).Value = uid;
-                exe.Parameters.Add("@password", OdbcType.Char).Value = pass;
-                if (exe.ExecuteNonQuery() > 0)
-                {
-                    myConn.Close();
-                }
+            string qry = "insert into ulogin (userid, password) values (?, ?)";
+            OdbcCommand exe = new OdbcCommand(qry, myConn);
+            exe.Parameters.Add("@userid", OdbcType.Char).Value = uid;
+            exe.Parameters.Add("@password", OdbcType.Char).Value = pass;
+            if (exe.ExecuteNonQuery() > 0)
+            {
+                StatusLabel.Text = "Sucessfully Added User";
+                myConn.Close();
             }
+            else
+            {
+                StatusLabel.Text = "User could not be added";
+            }
+        }
 
         static string ComputeSha256Hash(string rawData)
         {
@@ -60,15 +65,19 @@ namespace ServiceApp
 
                 OdbcConnection myConn = new OdbcConnection(connectionString);
                 myConn.Open();
-                
+
                 string qry = "select * from ulogin where userid=? and password=?";
                 OdbcCommand cmd = new OdbcCommand(qry, myConn);
                 cmd.Parameters.Add("@userid", OdbcType.Char).Value = uid;
                 cmd.Parameters.Add("@password", OdbcType.Char).Value = pass;
                 OdbcDataReader reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     Response.Redirect("Default.aspx");
+                }
+                else
+                {
+                    StatusLabel.Text = "User does not exist/Incorrect password";
                 }
                 myConn.Close();
             }
@@ -77,7 +86,7 @@ namespace ServiceApp
                 Response.Write(ex.Message);
             }
         }
-}
+    }
 
 
 }
