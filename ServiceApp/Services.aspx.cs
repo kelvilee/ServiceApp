@@ -21,10 +21,62 @@ namespace ServiceApp
             if (!Page.IsPostBack)
             {
 
-                ListView1.DataSource = command.ExecuteReader();
-                ListView1.DataBind();
+                ListViewServices.DataSource = command.ExecuteReader();
+                ListViewServices.DataBind();
             }
             myConn.Close();
+        }
+
+        protected void ListView_ItemCommand(object sender, ListViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteButton")
+            {
+                try
+                {
+                    OdbcConnection myConn = new OdbcConnection(connectionString);
+                    myConn.Open();
+                    string deleteQuery = "DELETE FROM ServiceType WHERE ID = HEXTORAW(?)";
+                    OdbcCommand command = new OdbcCommand(deleteQuery, myConn);
+                    string id = (string)e.CommandArgument;
+                    command.Parameters.Add("@ID", OdbcType.Text).Value = id.Replace("-", string.Empty);
+                    int result = command.ExecuteNonQuery();
+                    myConn.Close();
+
+                    Response.Redirect("Services.aspx");
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err);
+                }
+            }
+        }
+
+        protected void UploadBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OdbcConnection conn = new OdbcConnection();
+                conn = new OdbcConnection(connectionString);
+                conn.Open();
+                string query = "INSERT INTO ServiceType (ID, Name, CertificationRqts, Rate) VALUES (HEXTORAW(?), ?, ?, ?)";
+                OdbcCommand exe = new OdbcCommand(query, conn);
+                //exe.Parameters.AddWithValue("@guidValue", Guid.NewGuid().ToString("D"));
+                exe.Parameters.Add("@ID", OdbcType.Text).Value = Guid.NewGuid().ToString("N");
+                exe.Parameters.Add("@Name", OdbcType.Text).Value = nameTextBox.Text;
+                exe.Parameters.Add("@CertificationRqts", OdbcType.Numeric).Value = requirementsTextBox.Text;
+                exe.Parameters.Add("@Rate", OdbcType.Numeric).Value = rateTextBox.Text;
+                if (exe.ExecuteNonQuery() > 0)
+                {
+                    conn.Close();
+                }
+
+                Response.Redirect("Services.aspx");
+
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
         }
     }
 }
