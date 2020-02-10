@@ -17,6 +17,38 @@ namespace ServiceApp
 
         protected void Signup_Click(object sender, EventArgs e)
         {
+                string uid = TextBox3.Text;
+            string pass = ComputeSha256Hash(TextBox4.Text);
+
+                OdbcConnection myConn = new OdbcConnection(connectionString);
+                myConn.Open();
+
+                string qry = "insert into ulogin (userid, password) values (?, ?)";
+                OdbcCommand exe = new OdbcCommand(qry, myConn);
+                exe.Parameters.Add("@userid", OdbcType.Char).Value = uid;
+                exe.Parameters.Add("@password", OdbcType.Char).Value = pass;
+                if (exe.ExecuteNonQuery() > 0)
+                {
+                    myConn.Close();
+                }
+            }
+
+        static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -24,17 +56,10 @@ namespace ServiceApp
             try
             {
                 string uid = TextBox1.Text;
-                string pass = TextBox2.Text;
-                byte[] salt = new byte[128 / 8];
-                using (var rng = RandomNumberGenerator.Create())
-                {
-                    rng.GetBytes(salt);
-                }
-                Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
+                string pass = ComputeSha256Hash(TextBox2.Text);
 
                 OdbcConnection myConn = new OdbcConnection(connectionString);
                 myConn.Open();
-                //string qry = "select * from Ulogin where UserId='" + uid + "' and Password='" + pass + "'";
                 
                 string qry = "select * from ulogin where userid=? and password=?";
                 OdbcCommand cmd = new OdbcCommand(qry, myConn);
@@ -43,7 +68,6 @@ namespace ServiceApp
                 OdbcDataReader reader = cmd.ExecuteReader();
                 if(reader.HasRows)
                 {
-                    Console.WriteLine("found user");
                     Response.Redirect("Default.aspx");
                 }
                 myConn.Close();
