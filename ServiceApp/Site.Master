@@ -58,6 +58,9 @@
                         <li><a runat="server" href="~/CustomerService">CustomerService</a></li>
                     </ul>
                 </div>
+                <asp:Label runat="server" ID="UserLabel" Text='<%# "Logged in as: " + Session["User"].ToString() %>' ForeColor="White"></asp:Label>
+                <br />
+                <asp:Button ID="LogoutBtn" runat="server" Text="Logout" OnClick="LogoutBtn_Click" />
             </div>
         </div>
         <div class="container body-content">
@@ -66,7 +69,6 @@
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-                <p><%# "Logged in as: " + (string)System.Web.HttpContext.Current.Session["User"] %></p>
             </footer>
         </div>
 
