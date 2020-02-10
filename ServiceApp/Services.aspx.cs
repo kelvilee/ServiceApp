@@ -46,6 +46,7 @@ namespace ServiceApp
                 }
                 catch (Exception err)
                 {
+                    Label1.Text = "Could not remove service. Ensure it is removed from Customer Services.";
                     Console.WriteLine(err);
                 }
             }
