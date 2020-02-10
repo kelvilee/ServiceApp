@@ -3,7 +3,8 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
      <div> 
-        <h2>Employees List</h2>
+        <h2>
+            Employees List</h2>
          <hr />
         <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListViewEmployees" 
             OnItemDataBound="ListView_ItemDataBound" OnItemCommand="ListView_ItemCommand">
