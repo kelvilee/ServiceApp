@@ -16,7 +16,8 @@
     <br />
     <h2 ID="ListHeader" runat="server">Services List</h2>
     <br />
-    <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListViewServices" OnItemCommand="ListView_ItemCommand"> 
+    <asp:ListView ItemPlaceholderID="Test" runat="server" ID="ListViewServices" OnItemCommand="ListView_ItemCommand"
+        OnItemDataBound="ListView_ItemDataBound"> 
         <LayoutTemplate>
                 <table id="itemPlaceholderContainer" style="width: 90%;">
                     <tr>
@@ -40,17 +41,34 @@
         <ItemTemplate>
             <tr>
                 <td>
-                    <asp:Label runat="server" Text='<%# Eval("NAME") %>'> </asp:Label>
+                    <asp:Label ID="itemName" runat="server" Text='<%# Eval("NAME") %>'> </asp:Label>
                 </td>
                 <td>
-                    <asp:Label runat="server" Text='<%# Eval("CERTIFICATIONRQTS") %>'></asp:Label> 
+                    <asp:Label ID="itemReq" runat="server" Text='<%# Eval("CERTIFICATIONRQTS") %>'></asp:Label> 
                 </td>
                 <td>
-                    <asp:Label runat="server" Text='<%# Eval("RATE") %>'></asp:Label> 
+                    <asp:Label ID="itemRate" runat="server" Text='<%# Eval("RATE") %>'></asp:Label> 
                 </td>
                 <td>
                     <asp:Button ID="EditButton" runat="server" CommandName="EditButton" Text='Edit' />
                     <asp:Button ID="DeleteButton" runat="server" CommandName="DeleteButton" CommandArgument='<%# BitConverter.ToString((byte[])Eval("ID")) %>' Text='Delete' />
+                </td>
+            </tr>
+            <tr ID="updateRow" runat="server">
+                <td>
+                    
+                </td>
+                <td>
+                    <%--<asp:Label ID="updateRequirementsLabel" runat="server" Text="Requirements:"></asp:Label><br/>--%>
+                    <asp:TextBox ID="updateRequirementsTextBox" runat="server"></asp:TextBox><br/>
+                </td>
+                <td>
+                    <%--<asp:Label ID="updateRateLabel" runat="server" Text="Rate:"></asp:Label><br/>--%>
+                    <asp:TextBox ID="updateRateTextBox" runat="server"></asp:TextBox><br/>
+                </td>
+                <td>
+                    <asp:Button ID="Button3" runat="server" CommandName="SubmitButton" CommandArgument='<%# BitConverter.ToString((byte[])Eval("ID")) %>' Text='Submit' />
+                    <asp:Button ID="Button4" runat="server" CommandName="CancelButton" Text='Cancel' />
                 </td>
             </tr>
         </ItemTemplate>

@@ -4,6 +4,7 @@ using System.Data.Odbc;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace ServiceApp
@@ -50,6 +51,69 @@ namespace ServiceApp
                     Console.WriteLine(err);
                 }
             }
+
+            // shows the update row for the service
+            if (e.CommandName == "EditButton")
+            {
+                HtmlTableRow tr = (HtmlTableRow)e.Item.FindControl("updateRow");
+                tr.Visible = true;
+            }
+
+            // hides the update row for the service
+            if (e.CommandName == "CancelButton")
+            {
+                HtmlTableRow tr = (HtmlTableRow)e.Item.FindControl("updateRow");
+                tr.Visible = false;
+            }
+
+            // updates the service with the provided info
+            if (e.CommandName == "SubmitButton")
+            {
+                HtmlTableRow tr = (HtmlTableRow)e.Item.FindControl("updateRow");
+                TextBox newReq = (TextBox)e.Item.FindControl("updateRequirementsTextBox");
+                TextBox newRate = (TextBox)e.Item.FindControl("updateRateTextBox");
+                Label oldReq = (Label)e.Item.FindControl("itemReq");
+                Label oldRate = (Label)e.Item.FindControl("itemRate");
+                tr.Visible = false;
+
+                if(newReq.Text == "")
+                {
+                    newReq.Text = oldReq.Text;
+                }
+
+                if (newRate.Text == "")
+                {
+                    newRate.Text = oldRate.Text;
+                }
+
+                try
+                {
+                    OdbcConnection myConn = new OdbcConnection(connectionString);
+                    myConn.Open();
+                    string query = "UPDATE ServiceType SET CertificationRqts = ?, Rate = ? WHERE ID = HEXTORAW(?)";
+                    OdbcCommand command = new OdbcCommand(query, myConn);
+                    string id = (string)e.CommandArgument;
+                    command.Parameters.Add("@CertificationRqts", OdbcType.Numeric).Value = newReq.Text;
+                    command.Parameters.Add("@Rate", OdbcType.Numeric).Value = newRate.Text;
+                    command.Parameters.Add("@ID", OdbcType.Text).Value = id.Replace("-", string.Empty);
+                    int result = command.ExecuteNonQuery();
+                    myConn.Close();
+
+                    Response.Redirect("Services.aspx");
+
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err.Message);
+                }
+            }
+        }
+
+        // hides the update row for every service
+        protected void ListView_ItemDataBound(object sender, ListViewItemEventArgs e)
+        {
+            HtmlTableRow tr = (HtmlTableRow)e.Item.FindControl("updateRow");
+            tr.Visible = false;
         }
 
         protected void UploadBtn_Click(object sender, EventArgs e)
