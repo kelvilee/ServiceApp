@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ using System.Web.Security;
 using System.Collections;
 using System.Data;
 using System.Data.Odbc;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace ServiceApp
 {
@@ -82,6 +85,7 @@ namespace ServiceApp
                 ListView2.DataBind();
             }
             myConn.Close();
+            bindDropDownLists();
         }
         // hides the details
         protected void ListView_ItemDataBound(object sender, ListViewItemEventArgs e)
@@ -89,10 +93,71 @@ namespace ServiceApp
             HtmlGenericControl div = (HtmlGenericControl)e.Item.FindControl("toggleDiv");
             div.Visible = false;
         }
-
         protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Console.WriteLine("testing in selectedindexchanged.");
+        }
+
+        //private String strcon = ConfigurationManager.ConnectionStrings["hr"].ConnectionString;
+
+        //private dropdownlist ddlTest;
+
+        protected void bindDropDownLists()
+        {
+            string myConnection = "dsn=myOracle;uid=system;pwd=oracle1";
+            OdbcConnection myConn = new OdbcConnection(myConnection);
+            myConn.Open();
+            string mySelectQuery = "select utl_raw.cast_to_varchar2(UTL_RAW.cast_to_raw(id)) as id, name from servicetype;";
+            OdbcCommand command = new OdbcCommand(mySelectQuery, myConn);
+
+            DataTable table = new DataTable();
+            OdbcDataAdapter adapter = new OdbcDataAdapter(command);
+            adapter.Fill(table);
+            ServiceDropDownList.DataSource = table;
+            ServiceDropDownList.DataTextField = "name";
+            ServiceDropDownList.DataValueField = "id";
+            ServiceDropDownList.DataBind();
+
+            mySelectQuery = "select utl_raw.cast_to_varchar2(UTL_RAW.cast_to_raw(id)) as id, name from customer;";
+            command = new OdbcCommand(mySelectQuery, myConn);
+
+            table = new DataTable();
+            adapter = new OdbcDataAdapter(command);
+            adapter.Fill(table);
+            CustomerDropDownList.DataSource = table;
+            CustomerDropDownList.DataTextField = "name";
+            CustomerDropDownList.DataValueField = "id";
+            CustomerDropDownList.DataBind();
+
+            myConn.Close();
+        }
+
+        protected void Add_Service_Btn(object sender, EventArgs e)
+        {
+            if (ServiceDropDownList.SelectedValue != null && CustomerDropDownList.SelectedValue != null && durationInput.Text != null)
+            {
+                string myConnection = "dsn=myOracle;uid=system;pwd=oracle1";
+                OdbcConnection myConn = new OdbcConnection(myConnection);
+                myConn.Open();
+                string mySelectQuery = "INSERT INTO CustomerService (ID,CustomerID,ServiceTypeID,ExpectedDuration) VALUES (HEXTORAW(?), HEXTORAW(?), HEXTORAW(?), ?)";
+                OdbcCommand command = new OdbcCommand(mySelectQuery, myConn);
+                command.Parameters.Add("@ID", OdbcType.Text).Value = Guid.NewGuid().ToString("N");
+                command.Parameters.Add("@CustomerID", OdbcType.Text).Value = CustomerDropDownList.SelectedValue;
+                command.Parameters.Add("@ServiceTypeID", OdbcType.Text).Value = ServiceDropDownList.SelectedValue;
+                command.Parameters.Add("@ExpectedDuration", OdbcType.Text).Value = durationInput.Text;
+
+                Debug.WriteLine("CustomerDropDownList.DataValueField = " + CustomerDropDownList.SelectedValue);
+
+                Debug.WriteLine("ServiceDropDownList.DataValueField = " + ServiceDropDownList.SelectedValue);
+
+                //myConn.Close();
+
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    myConn.Close();
+
+                }
+            }
         }
     }
 }

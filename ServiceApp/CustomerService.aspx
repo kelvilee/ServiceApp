@@ -5,7 +5,15 @@
         <h2>Customer Service List</h2>
         <br />
         <div>
-            <asp:Button ID="Button1" runat="server" Text="Add" />
+            <asp:Label ID="addServiceLabel" runat="server" Text="Add a Service:"></asp:Label><br />
+            <asp:dropdownlist runat="server" ID="ServiceDropDownList"> 
+            </asp:dropdownlist><br />
+            <asp:Label ID="Label2" runat="server" Text="Select a Customer:"></asp:Label><br />
+            <asp:dropdownlist runat="server" ID="CustomerDropDownList"> 
+            </asp:dropdownlist><br />
+            <asp:Label ID="Label1" runat="server" Text="Expected Duration:"></asp:Label>
+            <asp:TextBox ID="durationInput" runat="server"></asp:TextBox><br />
+            <asp:Button ID="Button1" runat="server" Text="Add" OnClick="Add_Service_Btn"/>
         </div>
         <hr />
         <div> 
@@ -27,7 +35,6 @@
                 <asp:Button ID="DetailsButton" runat="server" CommandName="DetailsButton" Text='Details' />
                 <asp:Button ID="UpdateButton" runat="server" CommandName="UpdateButton" Text='Edit' />
                 <asp:Button ID="DeleteButton" runat="server" CommandName="DeleteButton" CommandArgument='<%# BitConverter.ToString((byte[])Eval("customerserviceid")) %>' Text='Delete' />
-
                 <br />
                 <asp:Label ID="DeleteConfirm" runat="server" Text=''></asp:Label> 
                 <br/> <br />
