@@ -73,6 +73,8 @@ namespace ServiceApp
                 OdbcDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
+                    Session["LoggedIn"] = "true";
+                    Session["User"] = uid;
                     Response.Redirect("Default.aspx");
                 }
                 else
