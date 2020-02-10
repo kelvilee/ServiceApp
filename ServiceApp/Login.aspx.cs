@@ -44,6 +44,8 @@ namespace ServiceApp
                 if(reader.HasRows)
                 {
                     Console.WriteLine("found user");
+                    Session["LoggedIn"] = "true";
+                    Session["User"] = uid;
                     Response.Redirect("Default.aspx");
                 }
                 myConn.Close();

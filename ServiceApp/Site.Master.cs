@@ -11,6 +11,10 @@ namespace ServiceApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if((string)Session["LoggedIn"] != "true")
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
     }
 }

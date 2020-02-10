@@ -66,6 +66,7 @@
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p><%# "Logged in as: " + (string)System.Web.HttpContext.Current.Session["User"] %></p>
             </footer>
         </div>
 
