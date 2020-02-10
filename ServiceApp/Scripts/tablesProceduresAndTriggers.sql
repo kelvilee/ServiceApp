@@ -11,6 +11,11 @@ drop table CustomerDim;
 drop table ShiftDim;
 drop table AddressDim;
 
+create table ulogin (
+	userid char(40),
+	password char(40)
+);
+
 create table Customer (
 	ID RAW(32) PRIMARY KEY,
 	Name char(80), 
