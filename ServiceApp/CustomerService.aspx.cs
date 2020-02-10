@@ -76,7 +76,7 @@ namespace ServiceApp
             string myConnection = "dsn=myOracle;uid=system;pwd=oracle1";
             OdbcConnection myConn = new OdbcConnection(myConnection);
             myConn.Open();
-            string mySelectQuery = "select utl_raw.cast_to_varchar2(UTL_RAW.cast_to_raw(CustomerID)) as CustomerID, utl_raw.cast_to_varchar2(UTL_RAW.cast_to_raw(ServiceTypeID)) as ServiceTypeID, ExpectedDuration, customerservice.id as customerserviceid, servicetype.id as servicetypeid, name, certificationrqts, rate from customerservice join servicetype on customerservice.servicetypeid = servicetype.id;";
+            string mySelectQuery = "select utl_raw.cast_to_varchar2(UTL_RAW.cast_to_raw(CustomerID)) as CustomerID, utl_raw.cast_to_varchar2(UTL_RAW.cast_to_raw(ServiceTypeID)) as ServiceTypeID, ExpectedDuration, customerservice.id as customerserviceid, servicetype.id as servicetypeid, servicetype.name as serviceName, certificationrqts, customer.name as customerName, customer.gender as gender, rate from customerservice join servicetype on customerservice.servicetypeid = servicetype.id join customer on customerservice.CustomerID = customer.id; ";
             OdbcCommand command = new OdbcCommand(mySelectQuery, myConn);
 
             if (!Page.IsPostBack)

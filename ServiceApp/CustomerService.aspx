@@ -19,17 +19,15 @@
         <div> 
         <asp:ListView ID="ListView2" runat="server" OnSelectedIndexChanged="ListView1_SelectedIndexChanged" OnItemDataBound="ListView_ItemDataBound">
             <ItemTemplate>
-                <asp:Label runat="server" Text='<%# Eval("name") %>'> </asp:Label>
-                <asp:Label runat="server" Text='<%# Eval("certificationrqts") %>'></asp:Label> 
-                <asp:Label runat="server" Text='<%# Eval("rate") %>'></asp:Label> 
-                <asp:Label runat="server" Text='<%# Eval("expectedduration") %>'></asp:Label> 
+                <asp:Label runat="server" Text='<%# "Service: " + Eval("serviceName") %>'> </asp:Label><br />
+                <asp:Label runat="server" Text='<%# "Customer: " + Eval("customerName") %>'> </asp:Label><br />
+                <asp:Label runat="server" Text='<%# "Rate: $" + Eval("rate") %>'></asp:Label><br />
+                <asp:Label runat="server" Text='<%# "Expected Duration (minutes): " + Eval("expectedduration") %>'></asp:Label> 
                 <br/> 
                 <div id="toggleDiv" runat="server">
-                    <asp:Label ID="ServiceID" runat="server" Text='<%# "Address: " + Eval("servicetypeid") %>'></asp:Label> 
+                    <asp:Label ID="ServiceID" runat="server" Text='<%# "Customer Gender: " + Eval("gender") %>'></asp:Label> 
                     <br />
-                    <asp:Label ID="CustomerServiceID" runat="server" Text='<%# "Manager ID: " + Eval("customerserviceid") %>'></asp:Label> 
-                    <br />
-                    <asp:Label ID="CustomerID" runat="server" Text='<%# "Certified For: " + Eval("customerid") %>'></asp:Label> 
+                    <asp:Label ID="CustomerID" runat="server" Text='<%# "Certification Requirements: " + Eval("certificationrqts") %>'></asp:Label> 
                 </div>
                 <br/> 
                 <asp:Button ID="DetailsButton" runat="server" CommandName="DetailsButton" Text='Details' />
