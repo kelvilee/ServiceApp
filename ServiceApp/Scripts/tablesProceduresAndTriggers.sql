@@ -12,8 +12,8 @@ drop table ShiftDim;
 drop table AddressDim;
 
 create table ulogin (
-	userid char(40),
-	password char(40)
+	userid char(128),
+	password char(128)
 );
 
 create table Customer (

@@ -12,6 +12,8 @@
     </style>  
 </head>  
 <body>  
+    <br />
+    <br />
     <form id="form1" runat="server">  
     <div>  
       
@@ -114,8 +116,12 @@
                 <td> </td>  
             </tr>  
     
-        </table>  
-      
+        </table>
+        <br />
+        <br />
+        <div style="text-align: center;">
+            <asp:Label ID="StatusLabel" runat="server" Font-Size="X-Large"></asp:Label> 
+        </div>      
     </div>  
     </form>  
 </body>  

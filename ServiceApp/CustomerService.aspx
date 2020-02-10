@@ -24,14 +24,21 @@
                 <asp:Label runat="server" Text='<%# "Rate: $" + Eval("rate") %>'></asp:Label><br />
                 <asp:Label runat="server" Text='<%# "Expected Duration (minutes): " + Eval("expectedduration") %>'></asp:Label> 
                 <br/> 
-                <div id="toggleDiv" runat="server">
+                <div id="toggleDetailsDiv" runat="server">
                     <asp:Label ID="ServiceID" runat="server" Text='<%# "Customer Gender: " + Eval("gender") %>'></asp:Label> 
                     <br />
                     <asp:Label ID="CustomerID" runat="server" Text='<%# "Certification Requirements: " + Eval("certificationrqts") %>'></asp:Label> 
                 </div>
                 <br/> 
                 <asp:Button ID="DetailsButton" runat="server" CommandName="DetailsButton" Text='Details' />
-                <asp:Button ID="UpdateButton" runat="server" CommandName="UpdateButton" Text='Edit' />
+                <asp:Button ID="UpdateButton" runat="server" CommandName="UpdateButton" Text='Edit Expected Duration' />
+                <div id="toggleUpdateDiv" runat="server">
+                    <asp:Label ID="DurationUpdateLabel" runat="server" Text='Updated Expected Duration (mins):'></asp:Label>
+                    <asp:TextBox ID="updateDurationTextBox" runat="server" Text='<%# Eval("expectedduration") %>'></asp:TextBox>
+                    <asp:Button ID="Button3" runat="server" CommandName="SubmitUpdateButton" CommandArgument='<%# BitConverter.ToString((byte[])Eval("customerserviceid")) %>' Text='Submit' />
+                    <asp:Button ID="Button4" runat="server" CommandName="CancelButton" Text='Cancel' />
+                    <br/>
+                </div>
                 <asp:Button ID="DeleteButton" runat="server" CommandName="DeleteButton" CommandArgument='<%# BitConverter.ToString((byte[])Eval("customerserviceid")) %>' Text='Delete' />
                 <br />
                 <asp:Label ID="DeleteConfirm" runat="server" Text=''></asp:Label> 

@@ -10,21 +10,75 @@
             OnItemDataBound="ListView_ItemDataBound" OnItemCommand="ListView_ItemCommand">
            
             <ItemTemplate>
-                <asp:Label ID="Name" runat="server" Text='<%# "Name: " + Eval("NAME") %>'> </asp:Label>
+                Name: <asp:Label ID="Name" runat="server" Text='<%#Eval("NAME") %>'> </asp:Label>
                 <br />
-                 <asp:Label ID="Title" runat="server" Text='<%# "Job title: " + Eval("JOBTITLE") %>'> </asp:Label>
+                 Job title: <asp:Label ID="Title" runat="server" Text='<%#Eval("JOBTITLE") %>'> </asp:Label>
                 <br />
-                <div id="toggleDiv" runat="server">
-                    <asp:Label ID="Address" runat="server" Text='<%# "Address: " + Eval("ADDRESS") %>'></asp:Label> 
+                <div id="toggleDetailsDiv" runat="server">
+                    Address: <asp:Label ID="Address" runat="server" Text='<%#Eval("ADDRESS") %>'></asp:Label> 
                     <br />
-                    <asp:Label ID="ManagerID" runat="server" Text='<%# "Manager ID: " + Eval("MANAGERID") %>'></asp:Label> 
+                    Manager ID: <asp:Label ID="ManagerID" runat="server" Text='<%# Eval("MANAGERID") %>'></asp:Label> 
                     <br />
-                    <asp:Label ID="CertifiedFor" runat="server" Text='<%# "Certified For: " + Eval("CertifiedFor") %>'></asp:Label> 
+                   Certified For:  <asp:Label ID="CertifiedFor" runat="server" Text='<%# Eval("CertifiedFor") %>'></asp:Label> 
                     <br />
-                    <asp:Label ID="StartDate" runat="server" Text='<%# "Start Date: " + Eval("STARTDATE") %>'></asp:Label> 
+                   Start Date: <asp:Label ID="StartDate" runat="server" Text='<%#Eval("STARTDATE") %>'></asp:Label> 
                     <br />
-                    <asp:Label ID="Salary" runat="server" Text='<%# "Salary: " + Eval("SALARY") %>'></asp:Label> 
+                    Salary: <asp:Label ID="Salary" runat="server" Text='<%#Eval("SALARY") %>'></asp:Label> 
                 </div>
+
+                <asp:Panel ID="updateInfoPanel" runat="server" ScrollBars="Auto" Width="100%" Height="300px">
+                    <br />
+                    <h3>Update Information</h3>
+                    <h5>Enter new values</h5>
+                    <table>
+                    <tr>
+                         <td>
+                             Name: 
+                         </td>
+                        <td>
+                            <asp:TextBox runat="server" ID="NameValue"></asp:TextBox>
+                        </td>
+                    </tr>
+                     <tr>
+                         <td>
+                             Title: 
+                        </td>
+                         <td>
+                             <asp:TextBox runat="server" ID="TitleValue"></asp:TextBox>
+                        </td>
+                    </tr>
+                     <tr>
+                         <td>
+                         Address: 
+                        </td>
+                         <td>
+                             <asp:TextBox runat="server" ID="AdressValue"></asp:TextBox>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td>
+                            CertifiedFor:
+                        </td>
+                          <td>
+                              <asp:TextBox runat="server" ID="CertifiedForValue"></asp:TextBox>
+                         </td>
+                     </<tr>
+                    <tr>
+                        <td>
+                        Salary: 
+                       </td>
+                        <td>
+                            <asp:TextBox runat="server" ID="SalaryValue"></asp:TextBox>
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>
+                            <asp:Button ID="SubmitButton" runat="server" CommandName="SubmitButton" Text="Submit" CommandArgument='<%# BitConverter.ToString((byte[])Eval("ID")) %>'/>
+                        </td> 
+                    </tr>
+                        </table>
+
+                </asp:Panel>
 
                 <br/> 
                 <asp:Button ID="DetailsButton" runat="server" CommandName="DetailsButton" Text='Details' />
@@ -32,7 +86,9 @@
                 <asp:Button ID="DeleteButton" runat="server" CommandName="DeleteButton" CommandArgument='<%# BitConverter.ToString((byte[])Eval("ID")) %>' Text='Delete' />
 
                 <br />
+
                 <asp:Label ID="DeleteConfirm" runat="server" Text=''></asp:Label> 
+
                 <br/> <br />
                 <hr />
             </ItemTemplate>
