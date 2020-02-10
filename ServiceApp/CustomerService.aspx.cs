@@ -27,27 +27,38 @@ namespace ServiceApp
             // displays the details by setting div visibility to true
             if (e.CommandName == "DetailsButton")
             {
-                HtmlGenericControl div = (HtmlGenericControl)e.Item.FindControl("toggleDiv");
-                div.Visible = true;
+                HtmlGenericControl toggleDetailsDiv = (HtmlGenericControl)e.Item.FindControl("toggleDetailsDiv");
+                toggleDetailsDiv.Visible = true;
             }
             if (e.CommandName == "UpdateButton")
             {
+                HtmlGenericControl toggleUpdateDiv = (HtmlGenericControl)e.Item.FindControl("toggleUpdateDiv");
+                toggleUpdateDiv.Visible = true;
+            }
+            if (e.CommandName == "SubmitUpdateButton")
+            {
+                HtmlGenericControl toggleUpdateDiv = (HtmlGenericControl)e.Item.FindControl("toggleUpdateDiv");
+                toggleUpdateDiv.Visible = false;
+                TextBox updateDurationTextBox = (TextBox)e.Item.FindControl("updateDurationTextBox");
+
                 try
                 {
-                    //OdbcConnection myConn = new OdbcConnection(connectionString);
-                    //myConn.Open();
-                    //string deleteQuery = "DELETE FROM CustomerService WHERE ID = ?";
-                    //    OdbcCommand command = new OdbcCommand(deleteQuery, myConn);
-                    //    string id = (string)e.CommandArgument;
-                    //    command.Parameters.Add("@ID", OdbcType.Text).Value = id.Replace("-", string.Empty);
-                    //    int result = command.ExecuteNonQuery();
-                    //    myConn.Close();
+                    OdbcConnection myConn = new OdbcConnection(connectionString);
+                    myConn.Open();
+                    string query = "UPDATE CustomerService SET ExpectedDuration = ? WHERE ID = HEXTORAW(?)";
+                    OdbcCommand command = new OdbcCommand(query, myConn);
+                    string customerserviceid = (string)e.CommandArgument;
+                    command.Parameters.Add("@ExpectedDuration", OdbcType.Numeric).Value = updateDurationTextBox.Text;
+                    command.Parameters.Add("@ID", OdbcType.Text).Value = customerserviceid.Replace("-", string.Empty);
+                    int result = command.ExecuteNonQuery();
+                    myConn.Close();
 
-                    //    Response.Redirect("CustomerService.aspx");
+                    Response.Redirect("CustomerService.aspx");
+
                 }
                 catch (Exception err)
                 {
-                    Console.WriteLine(err);
+                    Console.WriteLine(err.Message);
                 }
             }
             if (e.CommandName == "DeleteButton")
@@ -90,8 +101,10 @@ namespace ServiceApp
         // hides the details
         protected void ListView_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
-            HtmlGenericControl div = (HtmlGenericControl)e.Item.FindControl("toggleDiv");
-            div.Visible = false;
+            HtmlGenericControl toggleDetailsDiv = (HtmlGenericControl)e.Item.FindControl("toggleDetailsDiv");
+            toggleDetailsDiv.Visible = false;
+            HtmlGenericControl toggleUpdateDiv = (HtmlGenericControl)e.Item.FindControl("toggleUpdateDiv");
+            toggleUpdateDiv.Visible = false;
         }
         protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
